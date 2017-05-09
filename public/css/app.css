@@ -1,0 +1,29 @@
+body {
+    padding-bottom: 15px;
+}
+
+.navbar {
+    margin-bottom: 15px;
+}
+
+.blockquote {
+    padding: 0rem 1rem;
+    font-size: 1rem;
+}
+
+.qc-no-col-padding {
+    padding-left: 0px;
+}
+
+.qc-chat-message {
+    margin-top: 1rem;
+    margin-bottom: 0rem;
+}
+
+@media (max-width: 767px) {
+    .qc-md-top-padding {
+        padding-top: 15px;
+        padding-left: 15px;
+    }
+}
+

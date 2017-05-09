@@ -1,0 +1,33 @@
+<?php
+
+return array(
+    'queasy\\Loader' => array(
+        'app' => 'app',
+        'views' => 'views'
+    ),
+    'queasy\\log\\Logger' => array(
+        'path' => 'logs/debug.log'
+    ),
+    'queasy\\db\\DB' => array(
+        'default' => array(
+            'driver' => 'mysql',
+            'host' => 'localhost',
+            'name' => 'queasy_db',
+            'user' => 'queasy_user',
+            'password' => 'queasy_password'
+        )
+    ),
+    'queasy\\i18n\\Lang' => array(
+        'path' => 'i18n',
+        'default' => 'en'
+    ),
+    'queasy\\validation\\Validator' => array(
+        'rules' => array(
+            'email' => 'queasy\\validation\\EmailRule',
+            'maxlength' => 'queasy\\validation\\MaxlengthRule',
+            'minlength' => 'queasy\\validation\\MinlengthRule',
+            'required' => 'queasy\\validation\\RequiredRule'
+        )
+    )
+);
+
