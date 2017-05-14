@@ -20,9 +20,7 @@ class Room
 
     public static function getMostActiveRooms()
     {
-        return self::db()->select('
-            SELECT  *
-            FROM    `' . self::TABLE_NAME . '`');
+        return self::table()->all();
     }
 
     public static function cleanup()

@@ -26,7 +26,7 @@ $route = explode('/', $routeStr);
 
 session_start();
 
-queasy\log\Logger::info(sprintf('Request: %s', $routeStr));
+queasy\log\Logger::info(sprintf('Request: %s %s', $_SERVER['REQUEST_METHOD'], empty($routeStr)? '/': $routeStr));
 
 $request = new queasy\HttpRequest($_GET, $_POST, $_FILES, $_SESSION);
 

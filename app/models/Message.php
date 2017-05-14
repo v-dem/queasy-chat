@@ -17,16 +17,9 @@ class Message
 
     public static function getMessages($roomId)
     {
-        return self::db()->select('
-            SELECT  *
-            FROM    ' . self::TABLE_NAME . '
-            WHERE   `room_id` = :roomId
-            ORDER   BY `date_created` DESC
-            LIMIT   ' . self::MESSAGES_COUNT,
-            array(
-                'roomId' => $roomId
-            )
-        );
+        return self::table()->getMessages(array(
+            'roomId' => $roomId
+        ));
     }
 
     public static function addMessage($roomId, $user, $text)
@@ -50,24 +43,10 @@ class Message
 
     public static function cleanup($roomId)
     {
-        self::db()->execute('
-            DELETE  FROM `' . self::TABLE_NAME . '`
-            WHERE   `id` NOT IN (
-                    SELECT  `id`
-                    FROM    (
-                            SELECT  `id`
-                            FROM    `' . self::TABLE_NAME . '
-                            WHERE   `room_id` = :roomId1
-                            ORDER   BY `date_created` DESC
-                            LIMIT   ' . self::MESSAGES_COUNT . '
-                            ) `m`
-                    )
-                    AND `room_id` = :roomId2',
-            array(
-                'roomId1' => $roomId,
-                'roomId2' => $roomId
-            )
-        );
+        self::table()->cleanup(array(
+            'roomId1' => $roomId,
+            'roomId2' => $roomId
+        ));
     }
 
 }

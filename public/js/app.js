@@ -57,6 +57,47 @@
         });
     }
 
-    reload();
+    // reload();
+
+    function callFreeGeoIp(callback) {
+        $.get({
+            'url': 'https://freegeoip.net/json/',
+            'dataType': 'jsonp',
+            'timeout': 2000,
+            'async': false
+        }).done(function(response) {
+            if(undefined !== typeof response.country_code) {
+                callback(response.country_code);
+            } else {
+                callIpInfo(callback);
+            }
+        }).fail(function() {
+            callIpInfo(callback);
+        });
+    }
+
+    function callIpInfo(callback) {
+        $.get({
+            'url': 'https://ipinfo.io/',
+            'dataType': 'jsonp',
+            'timeout': 2000,
+            'async': false
+        }).done(function(response) {
+            if(undefined !== response.country) {
+                callback(response.country);
+            } else {
+                callback('EN');
+            }
+        }).fail(function() {
+            callback('EN');
+        });
+    }
+
+    var countryCode = null;
+    callFreeGeoIp(function(acountryCode) {
+        countryCode = acountryCode;
+    });
+
+    console.log(countryCode);
 })(jQuery, window);
 

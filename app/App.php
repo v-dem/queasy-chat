@@ -2,11 +2,11 @@
 
 namespace app;
 
-use queasy\Kernel;
+use queasy\App as BaseApp;
 
 use app\models\Room;
 
-class App extends Kernel
+class App extends BaseApp
 {
 
     public static function user()
