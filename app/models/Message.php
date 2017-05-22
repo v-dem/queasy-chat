@@ -2,13 +2,11 @@
 
 namespace app\models;
 
-use queasy\db\DbTrait;
 use queasy\db\TableTrait;
 
 class Message
 {
 
-    use DbTrait;
     use TableTrait;
 
     const TABLE_NAME = 'messages';
