@@ -1,7 +1,12 @@
 <?php
 
+use app\models\Message;
+
 return array(
-    app\models\Message::TABLE_NAME => array(
+    Message::TABLE_NAME => array(
+        /**
+         * Expects two parameters, both are room ID
+         */
         'cleanup' => array(
             'query' => sprintf('
                 DELETE  FROM `%s`
@@ -10,34 +15,30 @@ return array(
                         FROM    (
                                 SELECT  `id`
                                 FROM    `%s`
-                                WHERE   `room_id` = :roomId1
+                                WHERE   `room_id` = ?
                                 ORDER   BY `date_created` DESC
                                 LIMIT   %s
                                 ) `m`
                         )
-                        AND `room_id` = :roomId2',
-                app\models\Message::TABLE_NAME,
-                app\models\Message::TABLE_NAME,
-                app\models\Message::MESSAGES_COUNT,
-            ),
-            'params' => array(
-                'roomId1',
-                'roomId2'
+                        AND `room_id` = ?',
+                Message::TABLE_NAME,
+                Message::TABLE_NAME,
+                Message::MESSAGES_COUNT
             )
-            'return' => null
         ),
+
+        /**
+         * Expects one parameter (room ID)
+         */
         'getMessages' => array(
             'query' => sprintf('
                 SELECT  *
                 FROM    `%s`
-                WHERE   `room_id` = :roomId
+                WHERE   `room_id` = ?
                 ORDER   BY `date_created` DESC
                 LIMIT   %s',
-                app\models\Message::TABLE_NAME,
-                app\models\Message::MESSAGES_COUNT
-            ),
-            'params' => array(
-                'roomId' => $roomId
+                Message::TABLE_NAME,
+                Message::MESSAGES_COUNT
             )
         )
     )

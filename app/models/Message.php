@@ -17,9 +17,7 @@ class Message
 
     public static function getMessages($roomId)
     {
-        return self::table()->getMessages(array(
-            'roomId' => $roomId
-        ));
+        return self::table()->getMessages($roomId);
     }
 
     public static function addMessage($roomId, $user, $text)
@@ -43,10 +41,7 @@ class Message
 
     public static function cleanup($roomId)
     {
-        self::table()->cleanup(array(
-            'roomId1' => $roomId,
-            'roomId2' => $roomId
-        ));
+        self::table()->cleanup($roomId, $roomId);
     }
 
 }

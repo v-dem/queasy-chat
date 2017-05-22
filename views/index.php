@@ -21,7 +21,7 @@
             <form id="chatForm" class="form" method="POST">
                 <div class="row">
                     <div class="col-sm-10">
-                        <input type="text" name="text" class="form-control" placeholder="Enter your message" />
+                        <input type="text" name="text" class="form-control" required="required" placeholder="Enter your message" />
                     </div>
 
                     <div class="col-sm-2 qc-no-col-padding">
