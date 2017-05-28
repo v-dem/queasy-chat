@@ -1,38 +1,19 @@
 <?php
 
-define('QUEASY_ROOT', realpath(__DIR__ . DIRECTORY_SEPARATOR . '..'));
+// Set index.php path, do not change this
+define('INDEX_PATH', __FILE__);
 
-chdir(QUEASY_ROOT);
+// We'll count that the parent folder is the main Queasy path
+define('QUEASY_PATH', dirname(dirname(INDEX_PATH)));
 
-require_once('vendor' . DIRECTORY_SEPARATOR . 'autoload.php');
+// And we'll count that the vendor folder is in the main Queasy folder
+define('VENDOR_PATH', sprintf('%s%s%s', QUEASY_PATH, DIRECTORY_SEPARATOR, 'vendor'));
 
-$routeStr = preg_replace(
-    '/\?.*$/',
-    '',
-    str_replace(
-        $queasyUrl = str_replace(
-            basename(__FILE__),
-            '',
-            $_SERVER['SCRIPT_NAME']
-        ),
-        '',
-        $_SERVER['REQUEST_URI']
+// Include Queasy bootstrapping file
+require_once(
+    sprintf(
+        '%s%s%sv-dem%squeasy-core%ssrc%sbootstrap.php',
+        DIRECTORY_SEPARATOR, VENDOR_PATH, DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR
     )
 );
-
-define('QUEASY_URL', $queasyUrl);
-
-$route = explode('/', $routeStr);
-
-session_start();
-
-queasy\log\Logger::info(sprintf('Request: %s %s', $_SERVER['REQUEST_METHOD'], empty($routeStr)? '/': $routeStr));
-
-$request = new queasy\HttpRequest($_GET, $_POST, $_FILES, $_SESSION);
-
-$app = new app\App($route, $_SERVER['REQUEST_METHOD']);
-
-$app->handle($request);
-
-queasy\log\Logger::info(sprintf('Script execution time: %s', microtime(true) - $_SERVER['REQUEST_TIME_FLOAT']));
 
